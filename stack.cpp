@@ -1,6 +1,8 @@
 #include "stack.hpp"
+#include <utility>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
 
 
-class stack {
-
-};
+//implement stack methods
