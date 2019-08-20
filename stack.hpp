@@ -3,19 +3,28 @@ class stack {
     public:
         //6 essential methods
         //default ctor
+        stack();
+        stack(int pSize);
         //copy ctor
+        stack(stack const & that);
         //cpy assignment
+        stack(stack && that) noexcept;
         //move ctor
+        stack & operator = (stack const & that);
         //move assignment
+        stack & operator = (stack && that) noexcept;
         //dtor
+        ~stack();
 
-        //get length
-        //get next integer to be popped
-
-        //push
-        //pop
+        int getStackSize();
+        void setStackSize(int stackSize);
+        int getNextInt();
+        void push(int number);
+        void pop();
+        void print();
+        void printC();
         
     private:
         int stackSize;
-        int *stack = new int[256];
+        int *stackArr = new int[256];
 };
