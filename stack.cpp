@@ -66,7 +66,7 @@ void stack::pop()
 
 void stack::print()
 {
-    for(int i = 0; i < getStackSize(); i++)
+    for(auto i = 0; i < getStackSize(); i++)
     {
         std::cout << stackArr[i] << " ";
     }
@@ -75,7 +75,7 @@ void stack::print()
 
 void stack::printC()
 {
-    for(int i = 0; i < getStackSize(); i++)
+    for(auto i = 0; i < getStackSize(); i++)
     {
         std::cout << static_cast<char>(stackArr[i]) << " ";
     }
