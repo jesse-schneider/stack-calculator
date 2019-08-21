@@ -8,6 +8,7 @@ main()
 {
     stack operators;
     stack operands;
+    operators.push(static_cast<int>('$'));
 
     std::string equation;
 
@@ -37,8 +38,6 @@ main()
             variable = variable + equation[i];
         }
     }
-
-    operators.push(static_cast<int>('$'));
 
     operators.printC();
     operands.print();
