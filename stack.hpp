@@ -4,7 +4,7 @@ class stack {
         //6 essential methods
         //default ctor
         stack();
-        stack(int pSize);
+        stack(char dummy);
         //copy ctor
         stack(stack const & that);
         //cpy assignment

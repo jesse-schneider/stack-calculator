@@ -7,6 +7,9 @@
 //default ctor
 stack::stack() : stackSize{0}, stackArr{new int[256]} { }
 
+//default ctor
+stack::stack(char dummy) : stackSize{0}, stackArr{new int[256]} { stackArr[0] = static_cast<int>(dummy); }
+
 //copy ctor
 stack::stack(stack const & that) : stackSize{that.stackSize}, stackArr{new int [256]{}} 
 {  for(int i = 0; i < stackSize; i++) { stackArr[i] = that.stackArr[i]; }}
@@ -66,7 +69,7 @@ void stack::pop()
 
 void stack::print()
 {
-    for(auto i = 0; i < getStackSize(); i++)
+    for(int i = 0; i < getStackSize(); i++)
     {
         std::cout << stackArr[i] << " ";
     }
@@ -75,7 +78,7 @@ void stack::print()
 
 void stack::printC()
 {
-    for(auto i = 0; i < getStackSize(); i++)
+    for(int i = 0; i < getStackSize(); i++)
     {
         std::cout << static_cast<char>(stackArr[i]) << " ";
     }

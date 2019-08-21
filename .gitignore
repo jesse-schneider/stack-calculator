@@ -1,3 +1,4 @@
 main.o
 run
 stack.o
+calculator.o
