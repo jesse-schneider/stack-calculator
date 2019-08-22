@@ -4,7 +4,7 @@
 #include <sstream>
 
 //default ctor
-calculator::calculator() : integers{new int[256]}, intLength{0}, precedence{0, 1, 1, 2, 2, 3, 3}, equation{""} { }
+calculator::calculator() : integers{new int[256]}, intLength{0}, precedence{0, 1, 1, 2, 2, 3, 3, 4}, equation{""} { }
 
 //copy ctor
 calculator::calculator(calculator const & that) : integers{new int[256]}, intLength{that.intLength}, equation{that.equation} 
@@ -71,7 +71,7 @@ void calculator::processEquation(std::string equation)
         char c = equation[i];
         char d = equation[i+1];
         
-        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')')
+        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '^')
         {
             switch (c)
             {
@@ -99,6 +99,10 @@ void calculator::processEquation(std::string equation)
                     integers[getIntLength()] = -7;
                     setIntLength(getIntLength()+1);
                     break;
+                case '^':
+                    integers[getIntLength()] = -8;
+                    setIntLength(getIntLength()+1);
+                    break;
             }
         }
 
@@ -117,10 +121,11 @@ void calculator::processEquation(std::string equation)
                 integers[getIntLength()] = variable;
                 setIntLength(getIntLength()+1);
                 fullNum = "";
-            }
-            
+            } 
         }
     }
+    for (int i = 0; i < getIntLength(); i++)
+        std::cout << integers[i] << std::endl;
 }
 
 void calculator::calculate()
@@ -156,8 +161,7 @@ void calculator::calculate()
                     int result = performCalc(operandOne, operandTwo, operate);
                     //push back to operand stack
                     operands.push(result);
-                }
-                
+                }  
             }
             if(checkPrecedence(i, precedence, integers, operators) == true)
             {
@@ -213,6 +217,13 @@ int calculator::performCalc(int opOne, int opTwo, int operate)
                 case -7:
                     result = opTwo / opOne;
                     break;
+                case -8:
+                result = opTwo;
+                    for(int i = 0; i < opOne-1; i++)
+                    {
+                        result *= opTwo;
+                    }
+                    break;
             }
         return result;
 }
@@ -244,7 +255,6 @@ void calculator::displayString()
         {
             if(integers[i] == -3)
             {
-                //keep popping until '(', then pop 2 operands for each operator
                 int pop[10];
                 int temp;
                 while(1)
@@ -254,26 +264,23 @@ void calculator::displayString()
                         break;
                     temp++;
                 }
-
                 for(int i = 0; i < temp; i++)
                 {
-
-         
                     int operate = pop[i];
-                    //push back to operand stack
                     operands.push(operate);
                 }
-                
-                
+                continue;
             }
             if(checkPrecedence(i, precedence, integers, operators) == true)
             {
                 operators.push(integers[i]);
-            }
+             }
             else 
             {
                 while(checkPrecedence(i, precedence, integers, operators) == false)
                 {
+                    if(operands.getStackSize() <= 1 || operators.getNextInt(1) == -2 || operators.getNextInt(1) == -3)
+                        continue;
                     int operate = operators.pop();
                     operands.push(operate);
                 }
@@ -285,9 +292,30 @@ void calculator::displayString()
             operands.push(integers[i]);
         }
     }
-
+    for (int i = 0; i < operands.getStackSize(); i ++)
+    {
+        if(operands.getStack()[i] < 0)
+        {
+            switch (operands.getStack()[i])
+            {
+                case -4:
+                    operands.getStack()[i] = '+';
+                    break;
+                case -5:
+                    operands.getStack()[i] = '-';
+                    break;
+                case -6:
+                    operands.getStack()[i] = '*';
+                    break;
+                case -7:
+                    operands.getStack()[i] = '/';
+                    break;
+                 case -8:
+                    operands.getStack()[i] = '^';
+                    break;
+            }
+        }
+    }
     std::cout << "The Post-fix Notation ";
-    operands.print();
-    operators.print();
-
+    operands.printC();
 }

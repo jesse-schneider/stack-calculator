@@ -79,6 +79,11 @@ int stack::pop()
     return pop;
 }
 
+int* stack::getStack()
+{
+    return stackArr;
+}
+
 void stack::print()
 {
     for(int i = 0; i < getStackSize(); i++)
@@ -90,9 +95,14 @@ void stack::print()
 
 void stack::printC()
 {
-    for(int i = 0; i < getStackSize(); i++)
+    for(int i = 0; i < getStackSize()-1; i++)
     {
+        if(stackArr[i] > 40)
         std::cout << static_cast<char>(stackArr[i]) << " ";
+        if(stackArr[i] < 40)
+        std::cout << (stackArr[i]) << " ";
+        
+        
     }
     std::cout << std::endl;
 }

@@ -38,6 +38,6 @@ class calculator {
     private:
         int *integers = new int[256];
         int intLength;
-        int precedence[7];
+        int precedence[8];
         std::string equation;
 };

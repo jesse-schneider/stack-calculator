@@ -23,6 +23,7 @@ class stack {
         int pop();
         void print();
         void printC();
+        int* getStack();
         
     private:
         int stackSize;
