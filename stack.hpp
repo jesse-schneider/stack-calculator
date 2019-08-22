@@ -18,9 +18,9 @@ class stack {
 
         int getStackSize();
         void setStackSize(int stackSize);
-        int getNextInt();
+        int getNextInt(int deduct);
         void push(int number);
-        void pop();
+        int pop();
         void print();
         void printC();
         

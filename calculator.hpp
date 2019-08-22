@@ -22,18 +22,22 @@ class calculator {
 
         std::string getEquation();
         void setEquation(std::string equation);
-        stack getOperators();
-        void setOperators(stack operators);
-        stack getOperands();
-        void setOperands(stack operands);
+        int getIntLength();
+        void setIntLength(int intLength);
+
 
         void readInEquation(std::string equation);
         void processEquation(std::string equation);
 
-        void displaystacks();
+        void calculate();
+        int performCalc(int opOne, int opTwo, int operate);
+        bool checkPrecedence(int i, int precendence[], int integers[], stack operators);
+
+        void displayString();
 
     private:
         int *integers = new int[256];
+        int intLength;
         int precedence[7];
         std::string equation;
 };

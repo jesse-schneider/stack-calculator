@@ -9,4 +9,7 @@ main()
     calc.readInEquation(calc.getEquation());
     calc.processEquation(calc.getEquation());
 
+    calc.calculate();
+    calc.displayString();
+
 }

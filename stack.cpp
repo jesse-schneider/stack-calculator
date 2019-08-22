@@ -7,9 +7,6 @@
 //default ctor
 stack::stack() : stackSize{0}, stackArr{new int[256]} { }
 
-//default ctor
-stack::stack(char dummy) : stackSize{0}, stackArr{new int[256]} { stackArr[0] = static_cast<int>(dummy); }
-
 //copy ctor
 stack::stack(stack const & that) : stackSize{that.stackSize}, stackArr{new int [256]{}} 
 {  for(int i = 0; i < stackSize; i++) { stackArr[i] = that.stackArr[i]; }}
@@ -50,9 +47,16 @@ void stack::setStackSize(int stackSize)
     this->stackSize = stackSize;
 }
 
-int stack::getNextInt()
+int stack::getNextInt(int deduct)
 {
-    return stackArr[stackSize];
+    if (stackSize == 0)
+    {
+        return stackArr[0];
+    }
+    else
+    {
+        return stackArr[stackSize-deduct];
+    }
 }
 
 void stack::push(int number)
@@ -61,10 +65,18 @@ void stack::push(int number)
     setStackSize(getStackSize()+1);
 }
 
-void stack::pop()
+int stack::pop()
 {
-    stackArr[getStackSize()] = '\0';
+    if(getNextInt(-1) == -1)
+    {
+        std::cout << "Stack empty" << std::endl;
+        return -1;
+    }
+
+    int pop = stackArr[getStackSize()-1];
+    stackArr[getStackSize()-1] = '\0';
     setStackSize(getStackSize()-1);
+    return pop;
 }
 
 void stack::print()
